@@ -16,3 +16,24 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+
+    // Mensagem de confirmação ao tentar sair sem salvar
+    let formModified = false;
+    form.addEventListener("input", () => {
+        formModified = true;
+    });
+
+    window.addEventListener("beforeunload", (event) => {
+        if (formModified) {
+            event.preventDefault();
+            event.returnValue = "Você tem alterações não salvas. Deseja sair mesmo assim?";
+        }
+    });
+
+    // Notificação ao salvar alterações
+    form.addEventListener("submit", (event) => {
+        alert("Alterações salvas com sucesso!");
+    });
+});
